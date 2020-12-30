@@ -6,7 +6,7 @@
   <div class="card">
     <div class="card-body login-card-body">
 
-      <form action="/admin/auth/login" method="post">
+      <form action="<?= base_url('admin/auth/login'); ?>" method="post">
         <div class="input-group mb-3">
           <input type="text" name="username" class="form-control" placeholder="Username">
           <div class="input-group-append">

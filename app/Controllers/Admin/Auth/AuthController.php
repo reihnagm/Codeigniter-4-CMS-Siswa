@@ -20,7 +20,7 @@ class AuthController extends BaseController {
     ];
     if($username == "admin" && $password == "321123") {
       $session->set("authenticated", $fields);
-      redirect()->to('admin'); 
+      redirect()->to(base_url('admin')); 
     }
   }
   public function logout() {

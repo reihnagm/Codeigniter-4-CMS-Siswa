@@ -14,8 +14,16 @@ class DashboardController extends BaseController {
     $request = Services::request();
     $limit = $request->getPost('length');
     $offset = $request->getPost('start');
-    // die(var_dump('limit '.$limit.' offset '.$offset));
     $results = curlHelper('https://68.183.190.135:8081/api/people/school?startDate='.$startDate.'&endDate='.$endDate.'&birthYear='.$birthyear.'&offset='.$offset.'&limit='.$limit.'', 'GET', []);
+    if($results->code == 500) {
+      $jsonData = [
+        "draw" => 0,
+        "recordsTotal" => 0,
+        "recordsFiltered" => 0,
+        "data" => [],
+      ];
+      return json_encode($jsonData);
+    }
     $total = (int) $results->total; 
     $data = [];
     $i = 1;
@@ -38,7 +46,7 @@ class DashboardController extends BaseController {
       "recordsFiltered" => intval($total),
       "data" => $data
     ];
-    echo json_encode($jsonData);
+    return json_encode($jsonData);
   }
   public function getDtSiswaEmpty() {
     $json_data = [
